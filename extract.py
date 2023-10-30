@@ -26,19 +26,17 @@ def load_neos(neo_csv_path):
     """
     # TODO: Load NEO data from the given CSV file.
     neos = []
-    
     with open(neo_csv_path, 'r') as infile:
-        csv_data = csv.reader(infile) 
-        next(csv_data)
+        csv_data = csv.DictReader(infile) 
         for row in csv_data:
-            designation = row[3]
-            name = row[4]
-            diameter = row[15]
-            hazardous = row[7] == 'Y'
-        neo_info = NearEarthObject(designation, name, diameter, hazardous)    
-        neos.append(neo_info)
+            designation = row['pdes']
+            name = row['name']
+            diameter = float(row['diameter']) if row['diameter'] else float('nan')
+            hazardous = row['pha']
+            neo_info = NearEarthObject(designation, name, diameter, hazardous)    
+            neos.append(neo_info)
     print (neos)
-    return (neos)
+    return neos
 
 
 def load_approaches(cad_json_path):
@@ -49,15 +47,14 @@ def load_approaches(cad_json_path):
     """
     # TODO: Load close approach data from the given JSON file.
     approaches = []
-    
-    with open(cad_json_path, 'r') as infile:
-        json_data = json.load(infile)
-        for entry in json_data:
-            time = entry['cd']
-            distance = float(entry['dist'])
-            velocity = float(entry['v_rel'])
-            _designation = entry['des']
-            ca_info = CloseApproach(time, distance, velocity, _designation)
-            approaches.append(ca_info)
+    with open(cad_json_path, 'r') as json_file:
+        json_data = json.load(json_file)
+        for entry in json_data['data']:
+            designation = entry[0]
+            time = entry[3]
+            distance = float(entry[4])
+            velocity = float(entry[7])
+            approach = CloseApproach(designation, time, distance, velocity)
+            approaches.append(approach)
     print (approaches) 
-    return (approaches)
+    return approaches
