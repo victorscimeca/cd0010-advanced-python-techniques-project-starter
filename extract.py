@@ -31,11 +31,12 @@ def load_neos(neo_csv_path):
         for row in csv_data:
             designation = row['pdes']
             name = row['name']
+            if not name:
+                name = None
             diameter = float(row['diameter']) if row['diameter'] else float('nan')
-            hazardous = row['pha']
+            hazardous = row['pha'] == 'Y'
             neo_info = NearEarthObject(designation, name, diameter, hazardous)    
             neos.append(neo_info)
-    print (neos)
     return neos
 
 
@@ -56,5 +57,4 @@ def load_approaches(cad_json_path):
             velocity = float(entry[7])
             approach = CloseApproach(designation, time, distance, velocity)
             approaches.append(approach)
-    print (approaches) 
     return approaches
