@@ -172,7 +172,6 @@ def create_filters(
     if hazardous is not None:
         ca_hazardous = Haz_Filter(operator.eq, hazardous)
         filters.append(ca_hazardous)
-
     return filters
 
 
