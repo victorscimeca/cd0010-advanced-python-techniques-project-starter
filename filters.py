@@ -189,7 +189,6 @@ def create_filters(
         filters.append(ca_hazardous)
     return filters
 
-
 def limit(iterator, n=None):
     """Produce a limited stream of values from an iterator.
 
@@ -200,9 +199,6 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     # TODO: Produce at most `n` values from the given iterator.
-    if iterator is None:
-        return
-
     if n is None or n == 0:
         yield from iterator
     else:

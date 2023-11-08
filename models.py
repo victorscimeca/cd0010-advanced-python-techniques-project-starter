@@ -100,7 +100,7 @@ class CloseApproach:
     # TODO: How can you, and should you, change the arguments to this
     # constructor? If you make changes, be sure to update the comments
     # in this file.
-    def __init__(self, designation, time, distance, velocity):
+    def __init__(self, designation, time, distance, velocity, neo=None):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the
@@ -117,7 +117,9 @@ class CloseApproach:
         self.distance = float(distance)
         self.velocity = float(velocity)
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = None
+        self.neo = neo
+        if self.neo:
+            self.neo.approaches.append(self)
 
     @property
     def time_str(self):
@@ -137,8 +139,7 @@ class CloseApproach:
         # function to build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this
         # object.
-        full_name = f"{self._designation} ({self.neo})"
-        return datetime_to_str(self.time), full_name
+        return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
@@ -146,8 +147,7 @@ class CloseApproach:
         # representation.
         # The project instructions include one possibility. Peek at the
         # __repr__ method for examples of advanced string formatting.
-        time_str, full_name = self.time_str
-        return (f"On {time_str}, {full_name} approaches Earth at a distance "
+        return (f"On {self.time}, {self.neo.fullname} approaches Earth at a distance "
                 f"of {self.distance:.2f} au and a velocity of "
                 f"{self.velocity:.2f} km/s.")
 
