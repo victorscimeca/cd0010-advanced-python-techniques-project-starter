@@ -32,6 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+
     def __init__(self, designation, name=None, diameter=float('nan'),
                  hazardous=False):
         """Create a new `NearEarthObject`.
@@ -61,8 +62,7 @@ class NearEarthObject:
                 f"km and {is_hazardous} potentially hazardous.")
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-        this object."""
+        """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"NearEarthObject(designation={self.designation!r}, "
                 f"name={self.name!r}, diameter={self.diameter:.3f}, "
                 f"hazardous={self.hazardous!r})")
@@ -81,6 +81,7 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
+
     def __init__(self, designation, time, distance, velocity, neo=None):
         """Create a new `CloseApproach`.
 
@@ -97,8 +98,7 @@ class CloseApproach:
 
     @property
     def time_str(self):
-        """Return a formatted representation of this `CloseApproach`'s approach
-        time.
+        """Return a formatted representation of this `CloseApproach`'s approach time.
 
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default
@@ -118,8 +118,7 @@ class CloseApproach:
                 f"{self.velocity:.2f} km/s.")
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-        this object."""
+        """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, "
                 f"distance={self.distance:.2f}, velocity={self.velocity:.2f},"
                 f" neo={self.neo!r})")
